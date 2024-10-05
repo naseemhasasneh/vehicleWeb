@@ -1,0 +1,37 @@
+<div class="form-container">
+    <mat-card>
+      <mat-card-title>Search for Vehicle Models</mat-card-title>
+      <mat-card-content>
+        <mat-grid-list cols="2" rowHeight="100px" gutterSize="20px">
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Select Car Make</mat-label>
+          <input  #input
+                 type="text"
+                 placeholder="vehicle make"
+                 matInput
+                 [formControl]="makeControl"
+                 [matAutocomplete]="auto"
+                 (input)="filter()"
+                 (focus)="filter()">
+          <mat-autocomplete requireSelection (optionSelected)="selectedMakeId = $event.option.value.make_ID" [displayWith]="displayMakeName" #auto="matAutocomplete">
+            @for (make of filteredMakes; track make) {
+              <mat-option [value]="make">{{make.make_Name}}</mat-option>
+            }
+          </mat-autocomplete>
+            </mat-form-field>
+          </mat-grid-tile>
+  
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Enter Manufacture Year</mat-label>
+              <input matInput type="number" [(ngModel)]="selectedYear" (input)="onMakeSelect()" />
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onMakeSelect()">Search</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
